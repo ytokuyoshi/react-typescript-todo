@@ -121,7 +121,7 @@ export const useResource = (): IAppResources => {
   // 2-2.ダウンロード
   const handleDownload = (data: IData): void => {
     clearMsg();
-    downloadJson(JSON.stringify(data));
+    downloadJson(JSON.stringify(data), data.pageTitle);
   };
 
   // 2-3-1.サンプルデータ読込
