@@ -23,10 +23,10 @@ const StyledTableCell = withStyles((theme) => ({
 
 const useStyles = makeStyles(() => ({
   table: {
-    minWidth: 650,
+    // minWidth: 650,
   },
   icon: {
-    marginLeft: 5,
+    // marginLeft: 5,
   },
 }));
 
@@ -80,23 +80,33 @@ const Row = (props: {
           })}
         {isHeader ? (
           <StyledTableCell align="center" key={-1} onClick={handleClickDummy}>
-            {'コピー / 削除'}
+            {/* {'削除'} */}
           </StyledTableCell>
         ) : (
           <>
             <TableCell align="center" key={-1}>
-              <Tooltip title="コピー">
-                <FileCopyOutlinedIcon
-                  className={classes.icon}
-                  color="action"
-                  onClick={handleRowCopyClick ? (): void => handleRowCopyClick(rowIndex ?? -1) : handleClickDummy}
-                />
-              </Tooltip>
               <Tooltip title="削除">
                 <DeleteIcon
                   className={classes.icon}
                   color="action"
                   onClick={handleRowDeleteClick ? (): void => handleRowDeleteClick(rowIndex ?? -1) : handleClickDummy}
+                />
+              </Tooltip>
+            </TableCell>
+          </>
+        )}
+        {isHeader ? (
+          <StyledTableCell align="center" key={-10} onClick={handleClickDummy}>
+            {/* {'コピー'} */}
+          </StyledTableCell>
+        ) : (
+          <>
+            <TableCell align="center" key={-10}>
+              <Tooltip title="コピー">
+                <FileCopyOutlinedIcon
+                  className={classes.icon}
+                  color="action"
+                  onClick={handleRowCopyClick ? (): void => handleRowCopyClick(rowIndex ?? -1) : handleClickDummy}
                 />
               </Tooltip>
             </TableCell>
@@ -126,7 +136,7 @@ const CustomTable = (props: {
   return (
     <>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table className={classes.table} aria-label="simple table" padding="default" size="small">
           <TableHead>
             <Row row={header} isHeader={true} handleHeaderClick={handleHeaderClick} orderColName={orderColName} isOrderAsc={isOrderAsc} />
           </TableHead>
