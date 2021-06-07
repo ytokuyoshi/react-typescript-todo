@@ -20,10 +20,10 @@ const CusstomToggleButtons = (props: { onChange?: (isLocked: boolean) => void })
   return (
     <ToggleButtonGroup value={alignment} exclusive onChange={handleAlignment} aria-label="text alignment">
       <ToggleButton value={LOCKED} aria-label={LOCKED}>
-        削除ロック
+        ロック
       </ToggleButton>
       <ToggleButton value={UNLOCKED} aria-label={UNLOCKED}>
-        削除可能
+        解除
       </ToggleButton>
     </ToggleButtonGroup>
   );
