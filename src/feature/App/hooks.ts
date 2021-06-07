@@ -29,10 +29,10 @@ export const useResource = (): IAppResources => {
   const [infoMsg, setInfoMsg] = useState<string>('');
   const [isLocked, setIsLocked] = useState<boolean>(true);
 
-  const isHeaderVisible = (): boolean => data.isHeaderVisible ?? true;
+  const isHeaderDisable = (): boolean => data.isHeaderDisable ?? false;
 
-  const setIsHeaderVisible = (isHeaderVisible: boolean): void => {
-    const newData = { ...data, isHeaderVisible };
+  const setIsHeaderDisable = (isHeaderDisable: boolean): void => {
+    const newData = { ...data, isHeaderDisable };
     setLocalStorage(newData);
     setData(newData);
   };
@@ -278,8 +278,8 @@ export const useResource = (): IAppResources => {
     isOpenFormDialogUpd,
     errorMsg,
     infoMsg,
-    isHeaderVisible,
-    setIsHeaderVisible,
+    isHeaderDisable,
+    setIsHeaderDisable,
     handleHeaderClick,
     handleRowDeleteClick,
     handleRowCopyClick,

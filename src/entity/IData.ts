@@ -4,7 +4,7 @@ export interface IData {
   colName: string[];
   rows: string[][];
   editRowIndex: number;
-  isHeaderVisible: boolean;
+  isHeaderDisable: boolean;
 }
 
 export interface IDataNullable {
@@ -13,7 +13,7 @@ export interface IDataNullable {
   colName?: string[];
   rows?: string[][];
   editRowIndex?: number;
-  isHeaderVisible?: boolean;
+  isHeaderDisable?: boolean;
 }
 
 export const IDataNullable2IData = (data: IDataNullable): IData => {
@@ -23,7 +23,7 @@ export const IDataNullable2IData = (data: IDataNullable): IData => {
     colName: data.colName ?? [],
     rows: data.rows ?? [],
     editRowIndex: data.editRowIndex ?? -1,
-    isHeaderVisible: data.isHeaderVisible ?? true,
+    isHeaderDisable: data.isHeaderDisable ?? false,
   };
 };
 

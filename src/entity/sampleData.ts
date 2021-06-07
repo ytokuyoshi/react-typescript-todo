@@ -16,7 +16,6 @@ export const sampleData: IDataNullable = {
     ['b_itemName12', 'a_itemName22', '2021/06/01 11:24'],
     ['c_itemName13', 'b_itemName23', '2021/06/01 11:25'],
   ],
-  editRowIndex: -1,
 };
 
 export const sampleData2: IDataNullable = {
@@ -30,7 +29,6 @@ export const sampleData2: IDataNullable = {
     ['PCデスク', '下段', 'BOSEスーパーウーファー', '', '2021/06/01 11:22'],
     ['PCデスク', '下段', 'かご', '要整理', '2021/06/01 11:22'],
   ],
-  editRowIndex: -1,
 };
 
 export const getDefaultData = (): IData => {

@@ -22,8 +22,8 @@ const App = (): ReactElement => {
     isOpenFormDialogUpd,
     errorMsg,
     infoMsg,
-    isHeaderVisible,
-    setIsHeaderVisible,
+    isHeaderDisable,
+    setIsHeaderDisable,
     handleHeaderClick,
     handleRowDeleteClick,
     handleRowCopyClick,
@@ -42,8 +42,9 @@ const App = (): ReactElement => {
   } = useResource();
   const classes = useStyles();
 
-  const header = (
+  const headerArea = (
     <>
+      <Typography variant="h4">{data.pageTitle}</Typography>
       {Array.isArray(data.pageDescription) &&
         data.pageDescription.map((description, index) => (
           <Typography key={index} variant="body1">
@@ -66,13 +67,18 @@ const App = (): ReactElement => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4">{data.pageTitle}</Typography>
-      {isHeaderVisible() ? header : null}
+      {isHeaderDisable() ? (
+        <>
+          <b>{data.pageTitle}</b>&nbsp;&nbsp;&nbsp;
+        </>
+      ) : (
+        headerArea
+      )}
       <CusstomToggleButtons
-        onChange={(isHeaderVisible: boolean): void => setIsHeaderVisible(isHeaderVisible)}
+        onChange={(isHeaderVisible: boolean): void => setIsHeaderDisable(!isHeaderVisible)}
         leftLabel="ヘッダー表示"
         rightLabel="非表示"
-        defaultIsLeftSelected={data.isHeaderVisible}
+        defaultIsLeftSelected={!data.isHeaderDisable}
       />
       &nbsp;&nbsp;&nbsp;
       <CusstomToggleButtons onChange={handleChangeDeleteToggle} leftLabel="ロック" rightLabel="解除" defaultIsLeftSelected={true} />
