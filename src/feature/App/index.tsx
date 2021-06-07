@@ -1,4 +1,4 @@
-import { ReactElement, useState, useMemo } from 'react';
+import { ReactElement } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -67,14 +67,15 @@ const App = (): ReactElement => {
   return (
     <div className={classes.root}>
       <Typography variant="h4">{data.pageTitle}</Typography>
-      {isHeaderVisible ? header : null}
+      {isHeaderVisible() ? header : null}
       <CusstomToggleButtons
         onChange={(isHeaderVisible: boolean): void => setIsHeaderVisible(isHeaderVisible)}
         leftLabel="ヘッダー表示"
         rightLabel="非表示"
+        defaultIsLeftSelected={data.isHeaderVisible}
       />
       &nbsp;&nbsp;&nbsp;
-      <CusstomToggleButtons onChange={handleChangeDeleteToggle} leftLabel="ロック" rightLabel="解除" />
+      <CusstomToggleButtons onChange={handleChangeDeleteToggle} leftLabel="ロック" rightLabel="解除" defaultIsLeftSelected={true} />
       <AddIcon className={classes.icon} color="action" fontSize={'large'} onClick={handleFormDialogInsOpen} />
       <Typography variant="body1" color="error">
         {errorMsg}

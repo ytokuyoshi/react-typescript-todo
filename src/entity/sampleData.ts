@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage } from 'common/util/localStorage';
-import { IData, LAST_UPDATE_TITLE, MEMO } from 'entity/IData';
+import { IData, IDataNullable, IDataNullable2IData, LAST_UPDATE_TITLE, MEMO } from 'entity/IData';
 
-export const sampleData: IData = {
+export const sampleData: IDataNullable = {
   pageTitle: 'TODOリスト',
   pageDescription: [
     '普通のTODOリスト用途だけでなく、部屋の片づけ、持ち物管理など、使い方次第で色々使えます',
@@ -19,7 +19,7 @@ export const sampleData: IData = {
   editRowIndex: -1,
 };
 
-export const sampleData2: IData = {
+export const sampleData2: IDataNullable = {
   pageTitle: '持ち物リスト',
   pageDescription: [],
   colName: ['大分類', '中分類', '小分類', MEMO, LAST_UPDATE_TITLE],
@@ -34,11 +34,11 @@ export const sampleData2: IData = {
 };
 
 export const getDefaultData = (): IData => {
-  const localData = getLocalStorage();
-  if (localData) return localData;
+  const localData: IDataNullable = getLocalStorage();
+  if (localData) return IDataNullable2IData(localData);
 
   // 初期データはローカルストレージに入れる
   setLocalStorage(sampleData);
 
-  return sampleData;
+  return IDataNullable2IData(sampleData);
 };

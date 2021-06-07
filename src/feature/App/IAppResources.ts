@@ -9,7 +9,7 @@ export interface IAppResources {
   isOpenFormDialogUpd: boolean;
   errorMsg: string;
   infoMsg: string;
-  isHeaderVisible: boolean;
+  isHeaderVisible: () => boolean;
   setIsHeaderVisible: (isHeaderVisible: boolean) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleHeaderClick: (e: any) => void;

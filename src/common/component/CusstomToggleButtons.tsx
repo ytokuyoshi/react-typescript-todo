@@ -5,9 +5,14 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 const POSITION_LEFT = 'POSITION_LEFT';
 const POSITION_RIGHT = 'POSITION_RIGHT';
 
-const CusstomToggleButtons = (props: { onChange?: (isLeftSelected: boolean) => void; leftLabel: string; rightLabel: string }): ReactElement => {
-  const { onChange, leftLabel, rightLabel } = props;
-  const [alignment, setAlignment] = React.useState<string>(POSITION_LEFT);
+const CusstomToggleButtons = (props: {
+  onChange?: (isLeftSelected: boolean) => void;
+  leftLabel: string;
+  rightLabel: string;
+  defaultIsLeftSelected: boolean;
+}): ReactElement => {
+  const { onChange, leftLabel, rightLabel, defaultIsLeftSelected } = props;
+  const [alignment, setAlignment] = React.useState<string>(defaultIsLeftSelected ? POSITION_LEFT : POSITION_RIGHT);
 
   const handleAlignment = (_event: React.MouseEvent<HTMLElement>, newAlignment: string): void => {
     // 未選択は許可しない。未選択の場合、nullでセットされている

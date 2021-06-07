@@ -5,7 +5,7 @@ import { downloadJson } from 'common/util/download';
 import { setLocalStorage } from 'common/util/localStorage';
 import { sort, sortUsingUpperItems } from 'common/util/array';
 import { jsonText2obj } from 'common/util/json';
-import { IData } from 'entity/IData';
+import { IData, IDataNullable2IData } from 'entity/IData';
 import { sampleData, sampleData2, getDefaultData } from 'entity/sampleData';
 import { LAST_UPDATE_TITLE, MEMO } from 'entity/IData';
 import { addLastUpdateDate } from './hooksUtil';
@@ -28,7 +28,14 @@ export const useResource = (): IAppResources => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [infoMsg, setInfoMsg] = useState<string>('');
   const [isLocked, setIsLocked] = useState<boolean>(true);
-  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
+
+  const isHeaderVisible = (): boolean => data.isHeaderVisible ?? true;
+
+  const setIsHeaderVisible = (isHeaderVisible: boolean): void => {
+    const newData = { ...data, isHeaderVisible };
+    setLocalStorage(newData);
+    setData(newData);
+  };
 
   const clearMsg = (): void => {
     setInfoMsg('');
@@ -154,10 +161,10 @@ export const useResource = (): IAppResources => {
     // ボタン押下時に指定したデータをロードする
     switch (dataNumber) {
       case 2:
-        setLocalStorageAndStateData(sampleData2);
+        setLocalStorageAndStateData(IDataNullable2IData(sampleData2));
         break;
       default:
-        setLocalStorageAndStateData(sampleData);
+        setLocalStorageAndStateData(IDataNullable2IData(sampleData));
         break;
     }
     // ソート順をリセットする
