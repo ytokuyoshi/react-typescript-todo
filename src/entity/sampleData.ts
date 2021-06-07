@@ -1,5 +1,5 @@
 import { getLocalStorage, setLocalStorage } from 'common/util/localStorage';
-import { IData, LAST_UPDATE_TITLE } from 'entity/IData';
+import { IData, LAST_UPDATE_TITLE, MEMO } from 'entity/IData';
 
 export const sampleData: IData = {
   pageTitle: 'TODOリスト',
@@ -8,6 +8,7 @@ export const sampleData: IData = {
     'カラムの数とタイトルはJSONを編集し再アップロードすることで変更可能',
     'ページタイトルと説明文もJSONで管理しているので編集可能',
     '「最終更新日」はヘッダー名称（colName）に1か所だけ設定してください、位置は移動可能',
+    '「メモ」「最終更新日」以外は上位項目を含めてソートします（「メモ」「最終更新日」は右端に配置する前提の仕様）',
   ],
   colName: ['item1', 'item2', LAST_UPDATE_TITLE],
   rows: [
@@ -21,7 +22,7 @@ export const sampleData: IData = {
 export const sampleData2: IData = {
   pageTitle: '持ち物リスト',
   pageDescription: [],
-  colName: ['大分類', '中分類', '小分類', 'メモ', LAST_UPDATE_TITLE],
+  colName: ['大分類', '中分類', '小分類', MEMO, LAST_UPDATE_TITLE],
   rows: [
     ['PCデスク', '卓上', '27inch FullHD Display', '', '2021/06/01 11:22'],
     ['PCデスク', '卓上', 'PS4', '下段に移動する', '2021/06/01 11:22'],

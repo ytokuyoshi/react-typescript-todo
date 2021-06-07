@@ -3,10 +3,11 @@ import { getTodo } from 'api/sample';
 import { SORT_MARK_ASC, SORT_MARK_DESC } from 'common/component/CustomTable';
 import { downloadJson } from 'common/util/download';
 import { setLocalStorage } from 'common/util/localStorage';
-import { sort } from 'common/util/array';
+import { sort, sortUsingUpperItems } from 'common/util/array';
 import { jsonText2obj } from 'common/util/json';
 import { IData } from 'entity/IData';
 import { sampleData, sampleData2, getDefaultData } from 'entity/sampleData';
+import { LAST_UPDATE_TITLE, MEMO } from 'entity/IData';
 import { addLastUpdateDate } from './hooksUtil';
 import { IAppResources } from './IAppResources';
 import { MSG_I_001, MSG_E_001, MSG_E_002, MSG_E_003 } from './messageConst';
@@ -54,14 +55,21 @@ export const useResource = (): IAppResources => {
     // ソートマークは判定で邪魔なので置換して消しておく
     const colName = (e.target?.textContent ?? '').replace(SORT_MARK_ASC, '').replace(SORT_MARK_DESC, '');
     const index = data.colName.indexOf(colName);
+
     let isOrderAscTemp = true;
     if (orderColName === colName) {
       if (isOrderAsc) {
         isOrderAscTemp = false;
       }
     }
-    const sortedRows = sort(data.rows, index, isOrderAscTemp);
-    setNewRows(sortedRows);
+
+    if (colName === LAST_UPDATE_TITLE || colName === MEMO) {
+      // 単一項目のソート
+      setNewRows(sort(data.rows, index, isOrderAscTemp));
+    } else {
+      // 上位項目も含めた文字列連結によるソート
+      setNewRows(sortUsingUpperItems(data.rows, index, isOrderAscTemp));
+    }
 
     // 次回、逆順でソートを行うために設定しておく
     setOrderColName(colName);

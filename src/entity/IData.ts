@@ -7,3 +7,4 @@ export interface IData {
 }
 
 export const LAST_UPDATE_TITLE = '最終更新日時';
+export const MEMO = 'メモ';
