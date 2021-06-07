@@ -13,7 +13,6 @@ import { useStyles } from './styles';
 import { useResource } from './hooks';
 
 const App = (): ReactElement => {
-  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
   const {
     data,
     orderColName,
@@ -23,6 +22,8 @@ const App = (): ReactElement => {
     isOpenFormDialogUpd,
     errorMsg,
     infoMsg,
+    isHeaderVisible,
+    setIsHeaderVisible,
     handleHeaderClick,
     handleRowDeleteClick,
     handleRowCopyClick,

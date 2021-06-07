@@ -28,6 +28,7 @@ export const useResource = (): IAppResources => {
   const [errorMsg, setErrorMsg] = useState<string>('');
   const [infoMsg, setInfoMsg] = useState<string>('');
   const [isLocked, setIsLocked] = useState<boolean>(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
   const clearMsg = (): void => {
     setInfoMsg('');
@@ -270,6 +271,8 @@ export const useResource = (): IAppResources => {
     isOpenFormDialogUpd,
     errorMsg,
     infoMsg,
+    isHeaderVisible,
+    setIsHeaderVisible,
     handleHeaderClick,
     handleRowDeleteClick,
     handleRowCopyClick,
