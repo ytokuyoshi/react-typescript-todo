@@ -30,10 +30,12 @@ const CustomFormDialog = (props: {
 }): ReactElement => {
   const { isOpen, onClickCancel, onClickOK, title, description, colName, editRow } = props;
   const classes = useStyles();
-  const [inputData, setInputData] = useState<string[]>(buildEmptyStringList(colName.length));
+  const [inputData, setInputData] = useState<string[]>(buildEmptyStringList(colName?.length));
 
   // inputDataはダイアログの開閉時に初期化する
   useEffect(() => {
+    if (!colName) return;
+
     // Edit用データがそろっている場合はそちらを画面に反映する
     // 最終更新日は除外する
     if (editRow && Array.isArray(editRow)) {
@@ -72,24 +74,25 @@ const CustomFormDialog = (props: {
         <DialogTitle id="form-dialog-title">{title}</DialogTitle>
         <DialogContent>
           {description ? <DialogContentText id="alert-dialog-description">{description}</DialogContentText> : null}
-          {colName.map((col: string, index: number) => {
-            // 最終更新日は除外する
-            if (col === LAST_UPDATE_TITLE) return null;
-            return (
-              <TextField
-                key={index}
-                className={classes.input}
-                variant="outlined"
-                margin="normal"
-                id={col}
-                label={col}
-                type=""
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onChange={(e: any): void => handleOnChange(e, index)}
-                value={inputData[index]}
-              />
-            );
-          })}
+          {Array.isArray(colName) &&
+            colName.map((col: string, index: number) => {
+              // 最終更新日は除外する
+              if (col === LAST_UPDATE_TITLE) return null;
+              return (
+                <TextField
+                  key={index}
+                  className={classes.input}
+                  variant="outlined"
+                  margin="normal"
+                  id={col}
+                  label={col}
+                  type=""
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  onChange={(e: any): void => handleOnChange(e, index)}
+                  value={inputData[index]}
+                />
+              );
+            })}
         </DialogContent>
         <DialogActions>
           <Button onClick={onClickCancel} variant="contained" color="default">

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState, useMemo } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,7 @@ import { useStyles } from './styles';
 import { useResource } from './hooks';
 
 const App = (): ReactElement => {
+  const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
   const {
     data,
     orderColName,
@@ -39,9 +40,9 @@ const App = (): ReactElement => {
     handleChangeDeleteToggle,
   } = useResource();
   const classes = useStyles();
-  return (
-    <div className={classes.root}>
-      <Typography variant="h4">{data.pageTitle}</Typography>
+
+  const header = (
+    <>
       {Array.isArray(data.pageDescription) &&
         data.pageDescription.map((description, index) => (
           <Typography key={index} variant="body1">
@@ -59,7 +60,20 @@ const App = (): ReactElement => {
       <Button className={classes.button} variant="contained" color="default" onClick={(): void => handleReset(2)}>
         サンプルデータ読込2
       </Button>
-      <CusstomToggleButtons onChange={handleChangeDeleteToggle} />
+    </>
+  );
+
+  return (
+    <div className={classes.root}>
+      <Typography variant="h4">{data.pageTitle}</Typography>
+      {isHeaderVisible ? header : null}
+      <CusstomToggleButtons
+        onChange={(isHeaderVisible: boolean): void => setIsHeaderVisible(isHeaderVisible)}
+        leftLabel="ヘッダー表示"
+        rightLabel="非表示"
+      />
+      &nbsp;&nbsp;&nbsp;
+      <CusstomToggleButtons onChange={handleChangeDeleteToggle} leftLabel="ロック" rightLabel="解除" />
       <AddIcon className={classes.icon} color="action" fontSize={'large'} onClick={handleFormDialogInsOpen} />
       <Typography variant="body1" color="error">
         {errorMsg}
@@ -98,7 +112,7 @@ const App = (): ReactElement => {
         title={'データ更新'}
         description={''}
         colName={data.colName}
-        editRow={data.rows[data.editRowIndex]}
+        editRow={data.rows ? data.rows[data.editRowIndex] : []}
       />
     </div>
   );
